@@ -6,21 +6,29 @@ package ru.innopolis.collectiongenerics;
  * @author Ilya Pribytkov
  * @version 1.0
  */
-
+import java.util.*;
 import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 public class MathBox<T extends Number> extends ObjectBox {
     private SortedSet<T> setMass = new TreeSet<>();
+    /**
+     * Конструктор получает на вход массив чисел
+     * @param mass - массив чисел
+     */
     public MathBox(T [] mass) {
+        this.hash = new Random().nextInt(1000) + Objects.hashCode(mass);
         for (T i : mass) {
             setMass.add(i);
         }
     }
+    /**
+     * Суммирует все элементы коллекции
+     * @return sum - возвращает результат
+     */
     public Double summator() {
         Double sum = 0d;
-
         for (T mass : setMass) {
             sum += mass.doubleValue();
         }
@@ -61,7 +69,7 @@ public class MathBox<T extends Number> extends ObjectBox {
             str.append(obj).append(", ");
         return str.toString();
     }
-    public SortedSet<T> delet(T num) {
+    public SortedSet<T> delete(T num) {
         if (setMass.contains(num))
             setMass.remove(num);
         return setMass;

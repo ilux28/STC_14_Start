@@ -9,16 +9,24 @@ package ru.innopolis.collectiongenerics;
 import java.util.*;
 
 public class ObjectBox<T> {
+    protected int hash;
     private Set<T> box;
+
+    /**
+     * Конструктор без параметров
+     */
     public ObjectBox() {
+        this.hash = new Random().nextInt(1000);
         this.box = new HashSet<>();
     }
     /**
+     * Конструктор с параметром
      * @param objects массив объектов
      */
 
     public ObjectBox(T[] objects) {
         this.box = new HashSet<>();
+        this.hash = new Random().nextInt(1000) + Objects.hashCode(objects);
         Collections.addAll(this.box, objects);
     }
     /**
@@ -54,7 +62,7 @@ public class ObjectBox<T> {
      */
     @Override
     public int hashCode() {
-        return this.box.hashCode();
+        return this.hash;
     }
 
     /**
