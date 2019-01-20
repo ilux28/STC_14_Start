@@ -4,7 +4,7 @@ import java.util.Random;
 
 /**
  *
- * Класс с методом для генерации случайных слов из букв
+ * Class for generation words from char
  * @author Ilya Pribytkov
  * @version 1.0
  */
@@ -15,9 +15,10 @@ public class RandomWord {
      * @param wordLength - length of word
      */
     private String word;
-    public String generateRandomWord(int wordLength) {
+    public String generateRandomWord(int number) {
         Random r  = new Random();
-        StringBuilder sb = new StringBuilder(wordLength);
+        int wordLength = r.nextInt(number) + 1;
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < wordLength; i++) {
             char tmp = (char) ('a' + r.nextInt('z' - 'a'));
             sb.append(tmp);
