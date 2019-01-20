@@ -3,11 +3,17 @@ package ru.innopolis.inputoutput.buffer;
 import java.util.Random;
 
 /**
+ *
  * Класс с методом для генерации случайных слов из букв
  * @author Ilya Pribytkov
- * @
+ * @version 1.0
  */
+
 public class RandomWord {
+    /**
+     * @param word - return word
+     * @param wordLength - length of word
+     */
     private String word;
     public String generateRandomWord(int wordLength) {
         Random r  = new Random();
