@@ -1,114 +1,100 @@
 package ru.innopolis.multitreading.threadreader;
 
+
 import java.io.*;
 import java.net.URL;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ThreadReader extends Thread {
+public class ThreadReader {
     String path;
     Set<String> targetWords;
-    String res;
-    String name;
-    public ThreadReader(String path, Set<String> targetWords, String res, String name) {
+
+    public ThreadReader(String path, Set<String> targetWords) {
         this.path = path;
         this.targetWords = targetWords;
-        this.res = res;
-        this.name = name;
     }
-    private static final String REG_EXPRESSION_NOT_FULL_END = "[A-ZА-Я][^.?!]*$";
-    private static final String REG_EXPRESSION_NOT_FULL_BEGIN = "^[^A-ZА-Я.!?]+[.?!]";
-    private static final String REG_EXPRESSION_FULL = "^[A-ZА-Я][^.?!]+[!?.]";
+    private static final String REGEX_NO_END = "[A-ZА-Я][^.?!]*$";
+    private static final String REGEX_NO_START = "^[^A-ZА-Я.!?]+[.?!]";
+    private static final String REGEX_FULL = "^[A-ZА-Я][^.?!]+[!?.]";
     private String unFinSent = "";
 
-    private BufferedReader reader;
+    //private BufferedReader reader;
 
 
-    Pattern endNotFull = Pattern.compile(REG_EXPRESSION_NOT_FULL_END);
-    Pattern beginNotFul = Pattern.compile(REG_EXPRESSION_NOT_FULL_BEGIN);
-    Pattern full_exp = Pattern.compile(REG_EXPRESSION_FULL);
+    Pattern patternNoEnd = Pattern.compile(REGEX_NO_END);
+    Pattern patternNoStart = Pattern.compile(REGEX_NO_START);
+    Pattern patternFull = Pattern.compile(REGEX_FULL);
 
     /**
-     * regular expression find
+     *
+     * @return
+     * @throws IOException
      */
-
     private BufferedReader getResource() throws IOException {
         InputStream is;
-        if(isURL(path)) {
+        try {
+            URL url = new URL(path);
             is = new URL(path).openStream();
-        } else {
+        } catch (IOException e) {
             is = new FileInputStream(path);
         }
         return new BufferedReader(new InputStreamReader(is));
     }
-
     /**
-     * This method is a parsing resource
+     * This method building store of sentence
      * @throws IOException error of reading
      */
-    public void parseResourse() throws IOException {
-        long startTime = System.currentTimeMillis();
+    public List<String> buildSentenceStore() throws IOException {
+        //long startTime = System.currentTimeMillis();
+        List<String> storeSentence = new LinkedList<>();
         try (BufferedReader r = this.getResource()) {
-
+            //StringBuilder strBuff = null;
             String content;
             while ((content = r.readLine()) != null) {
-            }
-        }
-    }
-    /**
-     * check path has been is url
-     * @param url
-     * @return boolean
-     */
-    private boolean isURL(String url) {
-        try {
-            new URL(url);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-    private void checkLine(String line) throws IOException {
-        if (!this.unFinSent.equals("")) {
-            String[] continSent = coincidenceWord(beginNotFul, line);
-            if (continSent.length == 0)
-                unFinSent += line;
-            String continuation = continSent[0];
-            String sentence = unFinSent + " " + continuation;
-            if (isMathch(sentence)) {
-             //   this.storage.writeSentence(sentence);
-            }
+                Matcher matchNoEnd = patternNoEnd.matcher(content);
+                Matcher matchNoStart = patternNoStart.matcher(content);
+                Matcher matchFull = patternFull.matcher(content);
+                String sentence = "";
+                if (matchFull.find()) {
+                    storeSentence.add(matchFull.group(1).
+                            replaceAll(System.getProperty("line.separator"), " ").
+                            toLowerCase());
+                } else if (matchFull.find() && matchNoEnd.find()) {
+                    storeSentence.add(matchFull.group(1).
+                            replaceAll(System.getProperty("line.separator"), " ").
+                            toLowerCase());
+                    sentence = matchNoEnd.group(1).
+                            replaceAll(System.getProperty("line.separator"), " ").
+                            toLowerCase();
+                } else if (matchNoStart.find() && matchFull.find()) {
+                    addedInList(storeSentence, matchNoStart, matchFull, sentence);
+                } else {
+                    addedInList(storeSentence, matchNoStart, matchFull, sentence);
+                    sentence = matchNoEnd.group(1).
+                            replaceAll(System.getProperty("line.separator"), " ").
+                            toLowerCase();
+                }
+            } return storeSentence;
         }
     }
 
     /**
-     * find coincidence in line by pattern
-     * @param pattern - pattern
-     * @param line - string
-     * @return
+     * This method added repeat code in buildSentenceStore method
+     * @param storeSentence
+     * @param matchNoStart
+     * @param matchFull
+     * @param sentence
      */
-    private String[] coincidenceWord(Pattern pattern, String line) {
-        List<String> matches = new LinkedList<>();
-        Matcher matcher = pattern.matcher(line);
-        while (matcher.find()) // what .
-            matches.add(matcher.group(0));
-        return matches.toArray(new String[0]);
-    }
-
-    private boolean isMathch(String sentence) {
-        return !Collections.disjoint(sentenceToWords(sentence), this.targetWords);
-    }
-
-    /**
-     * split sentence by words, deleted punctuation and convert to lower case
-     * @param sentence - sentence
-     * @return
-     */
-    private Set<String> sentenceToWords(String sentence) {
-        Set<String> words = new HashSet<>();
-        Collections.addAll(words, removePunctuation(sentence.toLowerCase()).split("\\s+"));
-        return words;
+    private void addedInList(List<String> storeSentence, Matcher matchNoStart, Matcher matchFull, String sentence) {
+        sentence = sentence + " " + matchNoStart.group(1).
+                replaceAll(System.getProperty("line.separator"), " ").
+                toLowerCase();
+        storeSentence.add(sentence.toLowerCase());
+        storeSentence.add(matchFull.group(1).
+                replaceAll(System.getProperty("line.separator"), " ").
+                toLowerCase());
     }
     /**
      * deleted punctuation from sentence
@@ -117,10 +103,5 @@ public class ThreadReader extends Thread {
      */
     private String removePunctuation(String sentence) {
         return sentence.replaceAll("[^a-zA-Zа-яА-Я\\d\\s]", "");
-    }
-
-    @Override
-    public void run() {
-
     }
 }
