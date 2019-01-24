@@ -15,22 +15,6 @@ public class MultiThreadingFilesRead implements ThreadFileRead {
         List<String> keyWord = Collections.unmodifiableList(Arrays.asList(words));
         int size = Runtime.getRuntime().availableProcessors();
         for (String source : sources) {
-
-            BufferedReader reader = null;
-            String line;
-            if (isURL(source)) {
-
-            }
-        }
-
-
-    }
-    private boolean isURL(String url) {
-        try {
-            new URL(url);
-            return true;
-        } catch (Exception e) {
-            return false;
         }
     }
 }

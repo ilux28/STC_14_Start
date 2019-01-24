@@ -42,14 +42,14 @@ public class ThreadReader {
         }
         return new BufferedReader(new InputStreamReader(is));
     }
+    private String ghostSentence(Matcher matcher) {
+        return matcher.group(1).
+                replaceAll(System.getProperty("line.separator"), " ").
+                toLowerCase();
+    }
+    private boolean searchInSentenceWord(String sentence, String[] words) {
 
-    public List<String> searchCoincidence() throws IOException {
-        List<String> searchSent = new ArrayList<>();
-        List<String> sentStore = this.buildSentenceStore();
-        for (String sentence : sentStore) {
-
-        }
-        return searchSent;
+        return false;
     }
     /**
      * This method building store of sentence
@@ -67,23 +67,29 @@ public class ThreadReader {
                 Matcher matchFull = patternFull.matcher(content);
                 String sentence = "";
                 if (matchFull.find()) {
-                    storeSentence.add(matchFull.group(1).
-                            replaceAll(System.getProperty("line.separator"), " ").
-                            toLowerCase());
-                } else if (matchFull.find() && matchNoEnd.find()) {
-                    storeSentence.add(matchFull.group(1).
-                            replaceAll(System.getProperty("line.separator"), " ").
-                            toLowerCase());
-                    sentence = matchNoEnd.group(1).
-                            replaceAll(System.getProperty("line.separator"), " ").
-                            toLowerCase();
-                } else if (matchNoStart.find() && matchFull.find()) {
-                    addedInList(storeSentence, matchNoStart, matchFull, sentence);
+                    for ()
+                    ghostSentence(matchFull);
+                    if(matchNoEnd.find()) {
+                        sentence = ghostSentence(matchNoEnd);
+                        if (matchNoStart.find()) {
+                            sentence = sentence + ghostSentence(matchNoStart);
+                        }
+                    } else {
+                        if (matchNoStart.find()) {
+                            sentence = sentence + ghostSentence(matchNoStart);
+                        }
+                    }
                 } else {
-                    addedInList(storeSentence, matchNoStart, matchFull, sentence);
-                    sentence = matchNoEnd.group(1).
-                            replaceAll(System.getProperty("line.separator"), " ").
-                            toLowerCase();
+                    if (matchNoStart.find()) {
+                        sentence = sentence + ghostSentence(matchNoStart);
+                        if (matchNoEnd.find()) {
+                            sentence = ghostSentence(matchNoEnd);
+                        }
+                    } else {
+                        if (matchNoEnd.find()) {
+                            sentence = ghostSentence(matchNoEnd);
+                        }
+                    }
                 }
             } return storeSentence;
         }
