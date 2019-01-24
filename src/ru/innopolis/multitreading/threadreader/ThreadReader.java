@@ -42,6 +42,15 @@ public class ThreadReader {
         }
         return new BufferedReader(new InputStreamReader(is));
     }
+
+    public List<String> searchCoincidence() throws IOException {
+        List<String> searchSent = new ArrayList<>();
+        List<String> sentStore = this.buildSentenceStore();
+        for (String sentence : sentStore) {
+
+        }
+        return searchSent;
+    }
     /**
      * This method building store of sentence
      * @throws IOException error of reading
