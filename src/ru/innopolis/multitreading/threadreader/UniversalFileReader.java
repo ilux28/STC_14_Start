@@ -47,14 +47,15 @@ public class UniversalFileReader {
                     String sentence = content.toString().toLowerCase();
                     for (String str : this.targetWords) {
                         if (sentence.contains(str)) {
-                        Thread threadWriter = new Thread(new UniversalWriter(sentence, str));
-                        threadWriter.start();
+                            Thread threadWriter = new Thread(new UniversalWriter(sentence, str));
+                            threadWriter.start();
                         }
                     }
                 } else {
                     if (c == '\n' || c == '\r' || c == ',' || c == ';' || c == ':' || c == '-') {
                         content.append(" ");
                     } else {
+                        //System.out.println(content.toString());
                         content.append(c);
                     }
                 }
