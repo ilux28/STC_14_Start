@@ -1,4 +1,4 @@
-package ru.innopolis.multitreading.threadreader;
+package ru.innopolis.multitreading.threadreadwrite;
 
 import java.io.IOException;
 import java.net.URL;

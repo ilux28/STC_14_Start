@@ -1,30 +1,28 @@
-package ru.innopolis.multitreading.threadreader;
+package ru.innopolis.multitreading.threadreadwrite;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class UniversalWriter implements Runnable {
+public class ThreadWriter implements Runnable {
 
     private String sentence;
     private String res;
 
-    public UniversalWriter(String sentence, String res) {
+    public ThreadWriter(String sentence, String res) {
         this.sentence = sentence;
         this.res = res;
     }
-
-    private synchronized void writer(String sentence, String res) {
+    private synchronized void write(String sentence, String res) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(res))) {
             bw.write(sentence);
+            bw.flush();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
-
     @Override
     public void run() {
-        writer(this.sentence, this.res);
+        write(this.sentence, this.res);
     }
 }
