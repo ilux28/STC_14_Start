@@ -23,6 +23,7 @@ public class ThreadWriter implements Runnable {
     }
     @Override
     public void run() {
+        System.out.println("Write sentence: " + sentence);
         write(this.sentence, this.res);
     }
 }

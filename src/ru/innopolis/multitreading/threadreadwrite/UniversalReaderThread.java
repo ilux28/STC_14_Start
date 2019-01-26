@@ -21,16 +21,16 @@ public class UniversalReaderThread implements Runnable {
             StringBuilder content = new StringBuilder();
             int c;
             while ((c = r.read()) != -1) {
-                System.out.println((char)c);
                 if ((c != '.') && (c != '!') && (c != '?')) {
                     if (c == '\n' || c == '\r') {
                         content.append(' ');
                     } else {
+                        assert (c != -1);
                         content.append((char)c);
                     }
                 } else {
                     String sentence = content.toString().toLowerCase();
-                    content = null;
+                    content.delete(0, content.length() - 1);
                     for (String word : this.words) {
                         if (sentence.contains(word.toLowerCase())) {
                             Thread thread = new Thread(new ThreadWriter(sentence, res));
