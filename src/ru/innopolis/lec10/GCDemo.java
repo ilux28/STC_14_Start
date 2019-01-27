@@ -1,4 +1,4 @@
-package ru.innopolis.ec10;
+package ru.innopolis.lec10;
 
 import java.util.ArrayList;
 import java.util.List;

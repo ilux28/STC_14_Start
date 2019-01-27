@@ -5,11 +5,15 @@ public class Car {
     private int age;
     private String colour;
 
+    public Car() {
+    }
+
     public Car(String name, int age, String colour) {
         this.name = name;
         this.age = age;
         this.colour = colour;
     }
+
     @Override
     public String toString() {
         return "Car{" +
