@@ -8,12 +8,14 @@ public class Main {
         System.out.println("Введите реализацию: ");
         StringBuilder sb = null;
         String str;
+        /*
         while (scanner.hasNextLine()) {
             str = scanner.nextLine();
             if (str != "q") {
                 sb.append(str);
             }
         }
+        */
 
     }
 }
