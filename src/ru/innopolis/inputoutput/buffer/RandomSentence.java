@@ -18,7 +18,7 @@ public class RandomSentence {
             if (i == 0) {
                 sbs.append(str.substring(0, 1).toUpperCase()).append(str.substring(1));
             } else if (i == wordsLength - 1) {
-                int k = r.nextInt(1000) % 3;
+                int k = r.nextInt(1000) % 3; //make forgot
                 if (k == 0) {
                     sbs.append(str).append(".");
                 } else if (k == 1) {

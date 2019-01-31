@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -30,7 +31,7 @@ public class RecordFile {
             RandomText tx = new RandomText();
             String txt = tx.generateRandomText(size);
             String[] str = txt.split(" ");
-            ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(str));
+            List<String> arrayList = new ArrayList<String>(Arrays.asList(str));
             if ((new Random().nextInt(10) + 1) / 10 > probability)
                 arrayList.add(new Random().nextInt(arrayList.size()), words[new Random().nextInt(words.length)]);
             StringBuilder text = new StringBuilder();

@@ -1,4 +1,4 @@
-package ru.innopolis.lec09;
+package ru.innopolis.lec09.lambda;
 
 import java.util.Arrays;
 import java.util.Collection;

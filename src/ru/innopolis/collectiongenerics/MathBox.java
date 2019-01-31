@@ -12,7 +12,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 public class MathBox<T extends Number> extends ObjectBox {
-    private SortedSet<T> setMass = new TreeSet<>();
+    private Set<T> setMass = new TreeSet<>();
     /**
      * Конструктор получает на вход массив чисел
      * @param mass - массив чисел
@@ -69,7 +69,7 @@ public class MathBox<T extends Number> extends ObjectBox {
             str.append(obj).append(", ");
         return str.toString();
     }
-    public SortedSet<T> delete(T num) {
+    public Set<T> delete(T num) {
         if (setMass.contains(num))
             setMass.remove(num);
         return setMass;

@@ -23,6 +23,7 @@ public class TestRunnableClientTester implements Runnable {
             e.printStackTrace();
         }
     }
+
     @Override
     public void run() {
         try (DataOutputStream oos = new DataOutputStream(socket.getOutputStream());

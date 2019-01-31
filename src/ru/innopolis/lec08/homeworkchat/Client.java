@@ -7,9 +7,9 @@ import java.net.UnknownHostException;
 public class Client {
     public static void main(String[] args) throws InterruptedException {
         try (Socket socket = new Socket("localhost", 3345);
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        DataOutputStream oos = new DataOutputStream(socket.getOutputStream());
-        DataInputStream ois = new DataInputStream(socket.getInputStream())) {
+             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+             DataOutputStream oos = new DataOutputStream(socket.getOutputStream());
+             DataInputStream ois = new DataInputStream(socket.getInputStream())) {
             System.out.println("Client is connected to socket.");
             System.out.println();
             System.out.println("Client writing channel = oos & reading channel = ois in initialized.");
