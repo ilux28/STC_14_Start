@@ -10,6 +10,7 @@ public class TestRunnableClientTester implements Runnable {
 
     static Socket socket;
 
+
     public TestRunnableClientTester() {
         try {
             socket = new Socket("localhost", 3345);
@@ -30,14 +31,13 @@ public class TestRunnableClientTester implements Runnable {
              DataInputStream ois = new DataInputStream(socket.getInputStream())) {
             System.out.println("Client oos and ois initialized");
             int i = 0;
-
             while (i < 5) {
                 oos.writeUTF("clientCommand " + i);
                 oos.flush();
                 Thread.sleep(10);
                 System.out.println("Client wrote and start waiting for from server...");
                 System.out.println("Reading...");
-                System.out.println(ois.readUTF());
+                System.out.println(ois.read());
                 i++;
                 Thread.sleep(5000);
             }

@@ -26,6 +26,7 @@ public class MultiThreadServer {
                     }
                 }
                 Socket client = server.accept();
+                //String cientObj = client.getInputStream();
                 executeItem.execute(new MonoThreadClientHandler(client));
                 System.out.println("Connection accepted.");
             }

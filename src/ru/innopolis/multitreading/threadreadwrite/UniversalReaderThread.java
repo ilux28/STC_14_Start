@@ -3,6 +3,7 @@ package ru.innopolis.multitreading.threadreadwrite;
 
 import java.io.*;
 import java.net.URL;
+import java.util.Arrays;
 
 public class UniversalReaderThread implements Runnable {
 
@@ -15,6 +16,7 @@ public class UniversalReaderThread implements Runnable {
         this.words = words;
         this.res = res;
     }
+
     @Override
     public void run() {
         try (BufferedReader r = getBufferedReader(source)) {
@@ -26,17 +28,21 @@ public class UniversalReaderThread implements Runnable {
                         content.append(' ');
                     } else {
                         assert (c != -1);
-                        content.append((char)c);
+                        content.append((char) c);
                     }
                 } else {
                     String sentence = content.toString().toLowerCase();
                     content.delete(0, content.length() - 1);
+                    Arrays.stream(this.words).map(word -> new Thread(new ThreadWriter(sentence, res)))
+                            .filter(word -> sentence.equals(word));
+                    /*
                     for (String word : this.words) {
                         if (sentence.contains(word.toLowerCase())) {
                             Thread thread = new Thread(new ThreadWriter(sentence, res));
                             thread.start();
                         }
                     }
+                    */
                 }
             }
         } catch (FileNotFoundException e) {
@@ -45,6 +51,7 @@ public class UniversalReaderThread implements Runnable {
             e.printStackTrace();
         }
     }
+
     /**
      * @return BufferedReader for reading regardless of
      * @throws IOException

@@ -17,6 +17,7 @@ public class URLGenerator {
     public URLGenerator() {
 
     }
+
     public String[] getUrlMass(int count) {
         int i = 0;
         this.count = count;
@@ -35,11 +36,13 @@ public class URLGenerator {
         }
         return resources.toArray(new String[count]);
     }
+
     public String getOne() {
         count = 1;
         String[] res = getUrlMass(count);
         return res[res.length - 1];
     }
+
     private boolean isExist(String res) {
         try {
             URL url = new URL(res);

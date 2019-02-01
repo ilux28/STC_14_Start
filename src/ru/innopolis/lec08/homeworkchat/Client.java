@@ -5,7 +5,15 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class Client {
-    public static void main(String[] args) throws InterruptedException {
+
+    private String name;
+    private String message;
+
+    public Client(String name) throws IOException, InterruptedException {
+        this.name = name;
+    }
+
+    public void connect() {
         try (Socket socket = new Socket("localhost", 3345);
              BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
              DataOutputStream oos = new DataOutputStream(socket.getOutputStream());
@@ -18,14 +26,14 @@ public class Client {
                     //data is exist - working
                     System.out.println("Client start writing in chanel...");
                     Thread.sleep(1000);
-                    String clientCommand = br.readLine();
+                    this.message = br.readLine();
                     //writing data with console in channel of socket for server
-                    oos.writeUTF(clientCommand);
+                    oos.writeUTF(this.name + " " + this.message);
                     oos.flush();
-                    System.out.println("Client sent message " + clientCommand + " to server.");
+                    System.out.println("Client" + this.name + " sent message " + this.message + " to server.");
                     Thread.sleep(1000);
                     //waiting that server cen write and response
-                    if (clientCommand.equalsIgnoreCase("quit")) {
+                    if (this.message.equalsIgnoreCase("quit")) {
                         System.out.println("Client kill connections");
                         Thread.sleep(200);
                         if (ois.read() > -1) {
@@ -35,7 +43,6 @@ public class Client {
                     }
                     System.out.println("Client sent message & start waiting for data from server...");
                     Thread.sleep(2000);
-
                     if (ois.read() > -1) {
                         System.out.println("Reading..." + ois.readUTF());
                     }
@@ -45,6 +52,8 @@ public class Client {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }

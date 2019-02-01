@@ -13,6 +13,7 @@ public class ThreadWriter implements Runnable {
         this.sentence = sentence;
         this.res = res;
     }
+
     private synchronized void write(String sentence, String res) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(res))) {
             bw.write(sentence);
@@ -21,6 +22,7 @@ public class ThreadWriter implements Runnable {
             ex.printStackTrace();
         }
     }
+
     @Override
     public void run() {
         System.out.println("Write sentence: " + sentence);
