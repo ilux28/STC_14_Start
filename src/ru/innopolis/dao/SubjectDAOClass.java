@@ -1,5 +1,8 @@
 package ru.innopolis.dao;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class SubjectDAOClass implements InterfaceSubjectDAO {
+    private static Logger LOGGER = LoggerFactory.getLogger(SubjectDAOClass.class);
 
     private Connection connection;
     private SharedDAOClass sharedDAOClass;
@@ -30,11 +34,13 @@ public class SubjectDAOClass implements InterfaceSubjectDAO {
         List<Subject> subjects = new LinkedList<>();
         try (PreparedStatement ps = sharedDAOClass.getPrepareStatement(GET_ALL_SUBJECTS)) {
             ResultSet rs = ps.executeQuery();
+            int i = 0;
             while (rs.next()) {
                 Subject subject = new Subject();
                 subject.setId(rs.getInt(1));
                 subject.setDescription(rs.getString(2));
                 subjects.add(subject);
+                LOGGER.info("Get subject_" + i + " : " + subject.toString());
             }
             return subjects;
         } catch (SQLException e) {
@@ -52,6 +58,7 @@ public class SubjectDAOClass implements InterfaceSubjectDAO {
             if (rs.next()) {
                 subject.setId(rs.getInt(1));
                 subject.setDescription(rs.getString(2));
+                LOGGER.info("Get subject: " + subject.toString());
             }
             return subject;
         } catch (SQLException e) {
@@ -66,6 +73,7 @@ public class SubjectDAOClass implements InterfaceSubjectDAO {
             ps.setInt(2, subject.getId());
             ps.setString(1, subject.getDescription());
             ps.executeUpdate();
+            LOGGER.info("Subject_" + subject.getId() + " is updated");
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -77,6 +85,7 @@ public class SubjectDAOClass implements InterfaceSubjectDAO {
     public int createSubject(String description) {
         try (PreparedStatement ps = sharedDAOClass.getPrepareStatementKey(CREATE_SUBJECT)) {
             ps.setString(1, description);
+            LOGGER.info("Created subject with description: " + description);
             return sharedDAOClass.getPreparedGenerateKey(ps);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -86,6 +95,7 @@ public class SubjectDAOClass implements InterfaceSubjectDAO {
 
     @Override
     public boolean deleteSubjectById(int id) {
+        LOGGER.info("Subject with id = " + id + "was deleted!");
         return sharedDAOClass.deleteEntityById(id, DELETE_SUBJECT_BY_ID);
     }
 }

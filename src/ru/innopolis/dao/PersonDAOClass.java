@@ -1,5 +1,8 @@
 package ru.innopolis.dao;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 public class PersonDAOClass implements InterfacePersonDAO {
+    private static Logger LOGGER = LoggerFactory.getLogger(PersonDAOClass.class);
 
     private Connection connection;
     private SharedDAOClass sharedDAOClass;
@@ -40,6 +44,7 @@ public class PersonDAOClass implements InterfacePersonDAO {
                 person.setName(rs.getString(2));
                 person.setBirthday(rs.getTimestamp(3));
                 persons.add(person);
+                LOGGER.info("Get person = " + person.toString());
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -57,6 +62,7 @@ public class PersonDAOClass implements InterfacePersonDAO {
                 person.setId(rs.getInt(1));
                 person.setName(rs.getString(2));
                 person.setBirthday(rs.getTimestamp(3));
+                LOGGER.info("Get person = " + person.toString());
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -71,6 +77,7 @@ public class PersonDAOClass implements InterfacePersonDAO {
             ps.setTimestamp(2, person.getBirthday());
             ps.setString(1, person.getName());
             ps.executeUpdate();
+            LOGGER.info("Update person with id: " + person.getId());
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,6 +90,7 @@ public class PersonDAOClass implements InterfacePersonDAO {
         try (PreparedStatement ps = sharedDAOClass.getPrepareStatementKey(CREATE_PERSON)) {
             ps.setString(1, person.getName());
             ps.setTimestamp(2, person.getBirthday());
+            LOGGER.info("Created person: " + person.toString());
             return sharedDAOClass.getPreparedGenerateKey(ps);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -100,6 +108,7 @@ public class PersonDAOClass implements InterfacePersonDAO {
             ps.setInt(1, person.getId());
             ps.setInt(2, subject.getId());
             ps.executeQuery();
+            LOGGER.info("Added person: " + person.toString() + " and subject: " + subject.toString() + " in course.");
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -114,6 +123,7 @@ public class PersonDAOClass implements InterfacePersonDAO {
             while (rs.next()) {
                 map.put(rs.getInt(1), rs.getInt(2));
             }
+            LOGGER.info("Get all courses!");
             return map;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -129,6 +139,7 @@ public class PersonDAOClass implements InterfacePersonDAO {
             while (rs.next()) {
                 map.put(rs.getInt(1), rs.getInt(2));
             }
+            LOGGER.info("Get all courses by person!");
             return map;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -140,6 +151,7 @@ public class PersonDAOClass implements InterfacePersonDAO {
         try (PreparedStatement ps = sharedDAOClass.getPrepareStatement(DELETE_SUBJECT_BY_PERSON)) {
             ps.setInt(person.getId(), subject.getId());
             ps.executeUpdate();
+            LOGGER.info("Deleted " + person.toString() + " and " + subject.toString() + " from course.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
