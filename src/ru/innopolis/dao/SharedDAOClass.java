@@ -1,27 +1,20 @@
 package ru.innopolis.dao;
 
-import org.postgresql.jdbc2.optional.ConnectionPool;
-
 import java.sql.*;
-import java.util.List;
 
-public abstract class AbstractController<E, K> implements AutoCloseable {
+public class SharedDAOClass {
     private Connection connection;
 
 
-    protected AbstractController(Connection connection) {
+    SharedDAOClass(Connection connection) {
         this.connection = connection;
     }
 
-    public abstract List<E> getAll();
 
-    public abstract E getEntityById(K id);
-
-    public abstract E update(E entity);
-
-    protected boolean delete(Integer id, PreparedStatement preparedStatement) {
+    protected boolean deleteByTwoId(int firstId, int secondId, PreparedStatement preparedStatement) {
         try {
-            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(1, firstId);
+            preparedStatement.setInt(2, secondId);
             preparedStatement.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -30,9 +23,18 @@ public abstract class AbstractController<E, K> implements AutoCloseable {
         }
     }
 
-    public abstract int create(E entity);
+    boolean deleteEntityById(int id, String deletePersonById) {
+        try (PreparedStatement ps = this.getPrepareStatement(deletePersonById)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
-    public PreparedStatement getPrepareStatement(String sql) {
+    PreparedStatement getPrepareStatement(String sql) {
         PreparedStatement ps = null;
         try {
             ps = connection.prepareStatement(sql);
@@ -50,10 +52,9 @@ public abstract class AbstractController<E, K> implements AutoCloseable {
             e.printStackTrace();
         }
         return ps;
-
     }
 
-    static int getPreparedGenerateKey(PreparedStatement ps) throws SQLException {
+    int getPreparedGenerateKey(PreparedStatement ps) throws SQLException {
         ps.executeUpdate();
         ResultSet generatedKey = ps.getGeneratedKeys();
         if (generatedKey.next()) {

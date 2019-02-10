@@ -4,12 +4,12 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server {
-    static final int PORT =3232;
-    static final int PORT1 =3234;
+public class ServerSecond {
+    static final int PORT = 3232;
+    static final int PORT1 = 3234;
     public static void main(String[] args) throws IOException, InterruptedException {
         ServerSocket serverSocket = new ServerSocket(PORT);
-        ServerSocket serverSocket1 = new ServerSocket(PORT1);
+        ServerSocket serverSocket_1 = new ServerSocket(PORT1);
         try (Socket socket = serverSocket.accept()) {
             OutputStream os = socket.getOutputStream();
             InputStream is  = socket.getInputStream();

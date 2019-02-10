@@ -28,6 +28,7 @@ public class Subject implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
     @Override
     public String toString() {
         return "Subject{" +
@@ -35,6 +36,7 @@ public class Subject implements Serializable {
                 ", description='" + description + '\'' +
                 '}';
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
