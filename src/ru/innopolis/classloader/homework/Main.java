@@ -9,8 +9,8 @@ public class Main {
         if (comp == 0) {
             ClassLoader c1 = new MyClassLoader();
             Class<?> kindClass = c1.loadClass(loadFile);
-            ClassLoaded classLoaded = (ClassLoaded) kindClass.newInstance();
-            classLoaded.writing();
+            MyClassLoader classLoaded = (MyClassLoader) kindClass.newInstance();
+            //classLoaded.loadClass(kindClass);
         } else {
             System.out.println("Error about compile");
         }
