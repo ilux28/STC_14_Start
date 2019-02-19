@@ -5,6 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ru.innopolis.project-group</groupId>
     <artifactId>STC_14_Start_001</artifactId>
+    <packaging>pom</packaging>
     <version>1.0</version>
     <build>
         <plugins>
@@ -35,6 +36,9 @@
             </plugin>
         </plugins>
     </build>
+    <modules>
+        <module>springmvc</module>
+    </modules>
     <!-- https://mvnrepository.com/artifact/org.junit/junit5-engine -->
     <dependencies>
         <dependency>
