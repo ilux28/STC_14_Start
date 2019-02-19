@@ -3,9 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/STC_14_Start_001.iml" filepath="$PROJECT_DIR$/STC_14_Start_001.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SimpleSpringMVC/SimpleSpringMVC.iml" filepath="$PROJECT_DIR$/SimpleSpringMVC/SimpleSpringMVC.iml" />
       <module fileurl="file://$PROJECT_DIR$/springmvc/annotation/annotation.iml" filepath="$PROJECT_DIR$/springmvc/annotation/annotation.iml" />
-      <module fileurl="file://$PROJECT_DIR$/springmvc/lifecycle.iml" filepath="$PROJECT_DIR$/springmvc/lifecycle.iml" />
-      <module fileurl="file://$PROJECT_DIR$/springmvc/springmvc.iml" filepath="$PROJECT_DIR$/springmvc/springmvc.iml" />
       <module fileurl="file://$PROJECT_DIR$/springmvc/xml/xml.iml" filepath="$PROJECT_DIR$/springmvc/xml/xml.iml" />
     </modules>
   </component>

@@ -38,6 +38,7 @@
     </build>
     <modules>
         <module>springmvc</module>
+        <module>SimpleSpringMVC</module>
     </modules>
     <!-- https://mvnrepository.com/artifact/org.junit/junit5-engine -->
     <dependencies>

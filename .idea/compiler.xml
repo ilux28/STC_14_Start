@@ -7,12 +7,15 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="annotation" />
+        <module name="SimpleSpringMVC" />
         <module name="xml" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="annotation" target="8" />
+      <module name="lifecycle" target="8" />
       <module name="securitydemo" target="8" />
+      <module name="SimpleSpringMVC" target="1.8" />
       <module name="springmvc" target="8" />
       <module name="STC_14_Start_001" target="8" />
       <module name="xml" target="8" />
