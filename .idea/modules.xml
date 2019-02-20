@@ -4,8 +4,10 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/STC_14_Start_001.iml" filepath="$PROJECT_DIR$/STC_14_Start_001.iml" />
       <module fileurl="file://$PROJECT_DIR$/SimpleSpringMVC/SimpleSpringMVC.iml" filepath="$PROJECT_DIR$/SimpleSpringMVC/SimpleSpringMVC.iml" />
-      <module fileurl="file://$PROJECT_DIR$/springmvc/annotation/annotation.iml" filepath="$PROJECT_DIR$/springmvc/annotation/annotation.iml" />
-      <module fileurl="file://$PROJECT_DIR$/springmvc/xml/xml.iml" filepath="$PROJECT_DIR$/springmvc/xml/xml.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mi-api/miapi.iml" filepath="$PROJECT_DIR$/mi-api/miapi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mi-api/rmi-receiver/rmi-receiver.iml" filepath="$PROJECT_DIR$/mi-api/rmi-receiver/rmi-receiver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mi-api/rmi-api/rmiapi.iml" filepath="$PROJECT_DIR$/mi-api/rmi-api/rmiapi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mi-api/rmi-publisher/rmipublisher.iml" filepath="$PROJECT_DIR$/mi-api/rmi-publisher/rmipublisher.iml" />
     </modules>
   </component>
 </project>

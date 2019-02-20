@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="SimpleSpringSecurity:war">
+    <output-path>$PROJECT_DIR$/SimpleSpringSecurity/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>SimpleSpringSecurity</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="secure-exam.war">
+      <element id="artifact" artifact-name="SimpleSpringSecurity:war exploded" />
+    </root>
+  </artifact>
+</component>

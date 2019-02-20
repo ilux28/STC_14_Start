@@ -3,6 +3,7 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/securitydemo" />
     <file type="web" url="file://$PROJECT_DIR$/SimpleSpringMVC" />
+    <file type="web" url="file://$PROJECT_DIR$/SimpleSpringSecurity" />
     <file type="web" url="file://$PROJECT_DIR$/springmvc/xml" />
   </component>
   <component name="MavenProjectsManager">
